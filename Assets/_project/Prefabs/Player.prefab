@@ -41,7 +41,7 @@ Camera:
   m_GameObject: {fileID: 48044068}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.21960783, g: 0.26015922, b: 0.5019608, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -133,15 +133,9 @@ MonoBehaviour:
   _distanceFromWallPivot: 1
   _swipeRange: 50
   _tapRange: 10
-  _obstacleLayer:
+  _ignoreLayer:
     serializedVersion: 2
-    m_Bits: 256
-  _spikeLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  _finishLayer:
-    serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 3328
 --- !u!61 &-4667465390335572377
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -215,7 +209,7 @@ Transform:
   m_GameObject: {fileID: 4653811938249997999}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 4886831127246105681}
   m_RootOrder: 1
@@ -259,7 +253,7 @@ SpriteRenderer:
   m_SortingLayerID: -169970723
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 81f11350a5d83b44696fd381ee9adf3c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 05226ded7c36f9f4ea09373cde1d21df, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

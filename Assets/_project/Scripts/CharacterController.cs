@@ -14,9 +14,7 @@ public class CharacterController : MonoBehaviour
     public float _distanceFromWallPivot;
     public float _swipeRange;
     public float _tapRange;
-    public LayerMask _obstacleLayer;
-    public LayerMask _spikeLayer;
-    public LayerMask _finishLayer;
+    public LayerMask _ignoreLayer;
 
     // Update is called once per frame
     void Update()
@@ -43,25 +41,21 @@ public class CharacterController : MonoBehaviour
                     if (Distance.x < -_swipeRange)
                     {
                         Debug.Log("Left");
-                        RaycastHit2D hitWall = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.left), 100f, _obstacleLayer);
-                        if (hitWall)
+                        RaycastHit2D Hit = Physics2D.Raycast(new Vector2(transform.position.x - 1,transform.position.y), transform.TransformDirection(Vector2.left), 100f, _ignoreLayer);
+                        if (Hit.transform.gameObject.layer == 8)
                         {
                             _canMove = false;
-                            transform.DOLocalMoveX(hitWall.transform.position.x + _distanceFromWallPivot, 0.5f).OnComplete(() => _canMove = true);
-                            return;
+                            transform.DOLocalMoveX(Hit.transform.position.x + _distanceFromWallPivot, 0.5f).OnComplete(() => _canMove = true);
                         }
-                        RaycastHit2D hitSpike = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.left), 100f, _spikeLayer);
-                        if (hitSpike)
+                        else if (Hit.transform.gameObject.layer == 10)
                         {
                             _canMove = false;
-                            transform.DOLocalMoveX(hitSpike.transform.position.x + _distanceFromWallPivot, 0.5f).OnComplete(() => ActionEventHandler.OnPlayerDie());
-                            return;
+                            transform.DOLocalMoveX(Hit.transform.position.x + _distanceFromWallPivot, 0.5f).OnComplete(() => ActionEventHandler.OnPlayerDie());
                         }
-                        RaycastHit2D hitFinishLine = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.left), 100f, _finishLayer);
-                        if (hitFinishLine)
+                        else if(Hit.transform.gameObject.layer == 11)
                         {
                             _canMove = false;
-                            transform.DOLocalMoveX(hitFinishLine.transform.position.x + _distanceFromWallPivot, 0.5f).OnComplete(() => ActionEventHandler.OnPlayerWin());
+                            transform.DOLocalMoveX(Hit.transform.position.x + _distanceFromWallPivot, 0.5f).OnComplete(() => ActionEventHandler.OnPlayerWin());
                             return;
                         }
                         _stopTouch = true;
@@ -69,25 +63,23 @@ public class CharacterController : MonoBehaviour
                     else if (Distance.x > _swipeRange)
                     {
                         Debug.Log("Right");
-                        RaycastHit2D hitWall = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.right), 100f, _obstacleLayer);
-                        if (hitWall)
+                        RaycastHit2D Hit = Physics2D.Raycast(new Vector2(transform.position.x + 1, transform.position.y), transform.TransformDirection(Vector2.right), 100f, _ignoreLayer);
+                        if (Hit.transform.gameObject.layer == 8)
                         {
                             _canMove = false;
-                            transform.DOLocalMoveX(hitWall.transform.position.x - _distanceFromWallPivot, 0.5f).OnComplete(() => _canMove = true);
+                            transform.DOLocalMoveX(Hit.transform.position.x - _distanceFromWallPivot, 0.5f).OnComplete(() => _canMove = true);
                             return;
                         }
-                        RaycastHit2D hitSpike = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.right), 100f, _spikeLayer);
-                        if (hitSpike)
+                        else if (Hit.transform.gameObject.layer == 10)
                         {
                             _canMove = false;
-                            transform.DOLocalMoveX(hitSpike.transform.position.x - _distanceFromWallPivot, 0.5f).OnComplete(() => ActionEventHandler.OnPlayerDie());
+                            transform.DOLocalMoveX(Hit.transform.position.x - _distanceFromWallPivot, 0.5f).OnComplete(() => ActionEventHandler.OnPlayerDie());
                             return;
                         }
-                        RaycastHit2D hitFinish = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.right), 100f, _finishLayer);
-                        if (hitFinish)
+                        else if (Hit.transform.gameObject.layer == 11)
                         {
                             _canMove = false;
-                            transform.DOLocalMoveX(hitFinish.transform.position.x - _distanceFromWallPivot, 0.5f).OnComplete(() => ActionEventHandler.OnPlayerWin());
+                            transform.DOLocalMoveX(Hit.transform.position.x - _distanceFromWallPivot, 0.5f).OnComplete(() => ActionEventHandler.OnPlayerWin());
                             return;
                         }
                         _stopTouch = true;
@@ -95,25 +87,23 @@ public class CharacterController : MonoBehaviour
                     else if (Distance.y > _swipeRange)
                     {
                         Debug.Log("Up");
-                        RaycastHit2D hitWall = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up), 100f, _obstacleLayer);
-                        if (hitWall)
+                        RaycastHit2D Hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 1), transform.TransformDirection(Vector2.up), 100f, _ignoreLayer);
+                        if (Hit.transform.gameObject.layer == 8)
                         {
                             _canMove = false;
-                            transform.DOLocalMoveY(hitWall.transform.position.y - _distanceFromWallPivot, 0.5f).OnComplete(() => _canMove = true);
+                            transform.DOLocalMoveY(Hit.transform.position.y - _distanceFromWallPivot, 0.5f).OnComplete(() => _canMove = true);
                             return;
                         }
-                        RaycastHit2D hitSpike = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up), 100f, _spikeLayer);
-                        if (hitSpike)
+                        else if (Hit.transform.gameObject.layer == 10)
                         {
                             _canMove = false;
-                            transform.DOLocalMoveY(hitSpike.transform.position.y - _distanceFromWallPivot, 0.5f).OnComplete(() => ActionEventHandler.OnPlayerDie());
+                            transform.DOLocalMoveY(Hit.transform.position.y - _distanceFromWallPivot, 0.5f).OnComplete(() => ActionEventHandler.OnPlayerDie());
                             return;
                         }
-                        RaycastHit2D hitFinish = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up), 100f, _finishLayer);
-                        if (hitFinish)
+                        else if (Hit.transform.gameObject.layer == 11)
                         {
                             _canMove = false;
-                            transform.DOLocalMoveY(hitFinish.transform.position.y - _distanceFromWallPivot, 0.5f).OnComplete(() => ActionEventHandler.OnPlayerWin());
+                            transform.DOLocalMoveY(Hit.transform.position.y - _distanceFromWallPivot, 0.5f).OnComplete(() => ActionEventHandler.OnPlayerWin());
                             return;
                         }
                         _stopTouch = true;
@@ -121,25 +111,23 @@ public class CharacterController : MonoBehaviour
                     else if (Distance.y < -_swipeRange)
                     {
                         Debug.Log("Down");
-                        RaycastHit2D hitWall = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.down), 100f, _obstacleLayer);
-                        if (hitWall)
+                        RaycastHit2D Hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - 1), transform.TransformDirection(Vector2.down), 100f, _ignoreLayer);
+                        if (Hit.transform.gameObject.layer == 8)
                         {
                             _canMove = false;
-                            transform.DOLocalMoveY(hitWall.transform.position.y + _distanceFromWallPivot, 0.5f).OnComplete(() => _canMove = true);
+                            transform.DOLocalMoveY(Hit.transform.position.y + _distanceFromWallPivot, 0.5f).OnComplete(() => _canMove = true);
                             return;
                         }
-                        RaycastHit2D hitSpike = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.down), 100f, _spikeLayer);
-                        if (hitSpike)
+                        else if (Hit.transform.gameObject.layer == 10)
                         {
                             _canMove = false;
-                            transform.DOLocalMoveY(hitSpike.transform.position.y + _distanceFromWallPivot, 0.5f).OnComplete(() => ActionEventHandler.OnPlayerDie());
+                            transform.DOLocalMoveY(Hit.transform.position.y + _distanceFromWallPivot, 0.5f).OnComplete(() => ActionEventHandler.OnPlayerDie());
                             return;
                         }
-                        RaycastHit2D hitFinish = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.down), 100f, _finishLayer);
-                        if (hitFinish)
+                        else if (Hit.transform.gameObject.layer == 11)
                         {
                             _canMove = false;
-                            transform.DOLocalMoveY(hitFinish.transform.position.y + _distanceFromWallPivot, 0.5f).OnComplete(() => ActionEventHandler.OnPlayerWin());
+                            transform.DOLocalMoveY(Hit.transform.position.y + _distanceFromWallPivot, 0.5f).OnComplete(() => ActionEventHandler.OnPlayerWin());
                             return;
                         }
                         _stopTouch = true;
@@ -169,6 +157,7 @@ public class CharacterController : MonoBehaviour
         if (collision.gameObject.layer == 9)
         {
             Destroy(collision.gameObject);
+            ActionEventHandler.OnCollectCollectives();
         }
     }
 }

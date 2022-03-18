@@ -7,4 +7,5 @@ public class ActionEventHandler
 {
     public static Action OnPlayerWin;
     public static Action OnPlayerDie;
+    public static Action OnCollectCollectives;
 }
