@@ -154,12 +154,12 @@ public class GameManager : MonoBehaviour
         _uiPause.SetActive(false);
         _uILose.SetActive(false);
         OpenRectTransform(_uIMenu.GetComponent<RectTransform>());
-        Invoke("Transition", 0.5f);
         Invoke("EnableMenu", 0.5f);
     }
 
     public void EnableMenu()
     {
+        SceneTransition.Instance.AnimateIn();
         _uIMenu.SetActive(true);
     }
 
