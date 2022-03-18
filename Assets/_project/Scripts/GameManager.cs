@@ -148,6 +148,7 @@ public class GameManager : MonoBehaviour
     public void OnMenuCalled()
     {
         SceneTransition.Instance.AnimateOut();
+        ClearLastLevel();
         _uiPauseBtnGame.SetActive(false);
         _uiWin.SetActive(false);
         _uiPause.SetActive(false);
