@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour
         _uiPauseBtnGame.SetActive(false);
         _uiWin.SetActive(true);
         OpenRectTransform(_uiWin.GetComponent<RectTransform>());
-        if (_levelNo == 4)
+        if (_levelNo >= 4)
         {
             _nextBtnWin.interactable = false;
         }
@@ -167,7 +167,6 @@ public class GameManager : MonoBehaviour
     {
         SceneTransition.Instance.AnimateOut();
         ClearLastLevel();
-        _levelNo += 1;
         _uiWin.SetActive(false);
         _uILose.SetActive(false);
         _uiPauseBtnGame.SetActive(true);
