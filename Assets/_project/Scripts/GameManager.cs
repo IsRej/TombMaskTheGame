@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
     [Header("Text")]
     public Text _collectivesText;
     [Header("Win Buttons")]
-    public Button _retryBtnWin;
     public Button _nextBtnWin;
     public Button _menuBtnWin;
     [Header("Lose Buttons")]
@@ -47,7 +46,6 @@ public class GameManager : MonoBehaviour
         SceneTransition.Instance.AnimateIn();
         _uiPauseBtnGame.SetActive(false);
         GetCollectives();
-        _retryBtnWin.onClick.AddListener(OnRetryCalled);
         _retryBtnLose.onClick.AddListener(OnRetryCalled);
         _menuBtnWin.onClick.AddListener(OnMenuCalled);
         _menuBtnLose.onClick.AddListener(OnMenuCalled);
